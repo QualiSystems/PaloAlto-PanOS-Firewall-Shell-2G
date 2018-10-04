@@ -50,36 +50,22 @@ Release: **Palo Alto Firewall Shell 1.0.0**
 
 The shell's data model includes all shell metadata, families, and attributes.
 
-#### **[Device Name] Families and Models**
+#### **Palo Alto Firewall Families and Models**
 
-The [Device Name] families and models are listed in the following table:
+The Palo Alto Firewall families and models are listed in the following table:
 
-|Family|Model|Description|
-|:---|:---|:---|
-||||
-||||
-||||
-||||
+https://github.com/QualiSystems/cloudshell-standards/blob/master/Documentation/firewall_standard.md#data-model
 
-#### **[Device Name] Attributes**
+#### **Palo Alto Firewall Attributes**
 
 The attribute names and types are listed in the following table:
 
-|Attribute|Type|Default value|Description|
-|:---|:---|:---|:---|
-|||||
-|||||
-|||||
-|||||
+https://github.com/QualiSystems/cloudshell-standards/blob/master/Documentation/firewall_standard.md#attributes
 
 ### Automation
 This section describes the automation (drivers or scripts) associated with the data model. The shell’s driver is provided as part of the shell package. There are two types of automation processes, Autoload and Resource. Autoload is executed when creating the resource in the Inventory dashboard, while resource commands are run in the Sandbox, providing that the resource has been discovered and is online.
 
-|Command|Description|
-|:-----|:-----|
-|||
-|||
-|||
+https://github.com/QualiSystems/cloudshell-standards/blob/master/Documentation/firewall_standard.md#commands
 	
 # Downloading the Shell
 The **Palo Alto Firewall Shell 1.0.0** is available from the [Quali Community Integrations](https://community.quali.com/integrations) page. 
@@ -90,7 +76,7 @@ The shell comprises:
 
 |File name|Description|
 |:---|:---|
-|[Shell .zip File Name]|[Device Name] shell package|
+|Palo Alto Firewall Shell.zip| Palo Alto Firewall shell package|
 |[Shell Offline Requirements .zip File Name]|Shell Python dependencies (for offline deployments only)|
 
 # Importing and Configuring the Shell
@@ -235,14 +221,11 @@ To suggest an idea for the product, see [Quali's Idea box](https://community.qua
 To connect with Quali users and experts from around the world, ask questions and discuss issues, see [Quali's Community forums](https://community.quali.com/forums). 
 
 # Release Notes 
-(if not applicable - remove section)
+
 ### What's New
 
 * 
-* 
-* 
 
 ### Known Issues
-* 
-* 
+* PaloAlto PanOS supports the following **SNMP v3** encryption configuration only: authentication protocol - **SHA** and privacy protocol - **AES-128**
 * 
