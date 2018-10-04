@@ -77,7 +77,7 @@ The shell comprises:
 |File name|Description|
 |:---|:---|
 |Palo Alto Firewall Shell.zip| Palo Alto Firewall shell package|
-|[Shell Offline Requirements .zip File Name]|Shell Python dependencies (for offline deployments only)|
+|palo-alto-offline-dependencies.zip|Shell Python dependencies (for offline deployments only)|
 
 # Importing and Configuring the Shell
 This section describes how to import the **Palo Alto Firewall Shell 1.0.0** and configure and modify the shell’s devices.
