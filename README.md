@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/QualiSystems/devguide_source/raw/master/logo.png"></img>
+<img src="https://github.com/QualiSystems/cloudshell-shells-documentaion-templates/blob/master/cloudshell_logo.png"></img>
 </p>
 
 # **Palo Alto Firewall Shell**  
@@ -8,7 +8,7 @@ Release date: October 2018
 
 Shell version: 1.0.0
 
-Document version: 1.0.0
+Document version: 1.0
 
 # In This Guide
 
