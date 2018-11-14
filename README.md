@@ -1,4 +1,4 @@
-<p align="center">
+<p align="left">
 <img src="https://github.com/QualiSystems/cloudshell-shells-documentaion-templates/blob/master/cloudshell_logo.png"></img>
 </p>
 
@@ -224,8 +224,7 @@ To connect with Quali users and experts from around the world, ask questions and
 
 ### What's New
 
-* 
+For release updates, see the shell's [GitHub releases page](https://github.com/QualiSystems/PaloAlto-PanoOS-Shell/releases).
 
 ### Known Issues
 * PaloAlto PanOS supports the following **SNMP v3** encryption configuration only: authentication protocol - **SHA** and privacy protocol - **AES-128**
-* 
