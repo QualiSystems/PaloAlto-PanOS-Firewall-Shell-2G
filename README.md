@@ -182,10 +182,9 @@ In online mode, the execution server automatically downloads and extracts the ap
 * If there is a live instance of the shell's driver or script, restart the execution server, as explained above. If an instance does not exist, the execution server will download the Python dependencies the next time a command of the driver or script runs.
 
 # Typical Workflow and Scenarios 
-(edit as necessary depending on the shell)
 
 **Scenario 1 - _Save configuration_** 
-1. In CloudShell Portal, add the device resource to an active sandbox.
+1. In CloudShell Portal, add the device resource to your blueprint and reserve the blueprint.
 
 2. Run the **Save** command on the device with the following inputs:
     * **Folder Path**: For example, *tftp://ipaddress/shared folder* 
@@ -194,7 +193,7 @@ In online mode, the execution server automatically downloads and extracts the ap
 The configuration is saved to a file named *<ResourceName><startup/running-config>-<timestamp>*, which will reside in the folder path you entered.    
 
 **Scenario 2 - _Restore Configuration_**
-1. In CloudShell Portal, reserve the device resource.
+1. In CloudShell Portal, add the device resource to your blueprint and reserve the blueprint.
 
 2. Run the **Restore** resource command.
 
@@ -204,7 +203,7 @@ The configuration is saved to a file named *<ResourceName><startup/running-confi
     * **Configuration Type** (mandatory): **Startup** or **Running**. 
 	
 **Scenario 3 - _Load firmware_**
-1. In CloudShell Portal, reserve the device resource.
+1. In CloudShell Portal, add the device resource to your blueprint and reserve the blueprint.
 
 2. Run the **Load Firmware** resource command.
 
