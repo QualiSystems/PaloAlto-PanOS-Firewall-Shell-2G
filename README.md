@@ -1,3 +1,5 @@
+[![Build status](https://github.com/QualiSystems/PaloAlto-PanoOS-Shell/workflows/CI/badge.svg?branch=master)](https://github.com/QualiSystems/PaloAlto-PanoOS-Shell/actions?query=branch%3Amaster)
+
 <p align="left">
 <img src="https://github.com/QualiSystems/cloudshell-shells-documentaion-templates/blob/master/cloudshell_logo.png"></img>
 </p>
