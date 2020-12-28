@@ -3,7 +3,7 @@ tosca_definitions_version: tosca_simple_yaml_1_0
 metadata:
   template_name: Palo Alto Firewall Shell
   template_author: Quali
-  template_version: 1.0.0
+  template_version: 1.0.1
   template_icon: shell-icon.png
 
 description: >
