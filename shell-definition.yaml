@@ -1,19 +1,19 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 metadata:
-  template_name: Palo Alto Firewall Shell
+  template_name: PaloAlto PanOS Firewall Shell 2G
   template_author: Quali
-  template_version: 1.0.0
+  template_version: 2.0.0
   template_icon: shell-icon.png
 
 description: >
   This Shell supports Palo Alto Firewall devices that run PanOS
 
 imports:
-  - cloudshell_standard: cloudshell_firewall_standard_3_0_1.yaml
+  - cloudshell_standard: cloudshell_firewall_standard_3_0_2.yaml
 
 node_types:
-  vendor.firewall.PaloAlto Firewall:
+  vendor.firewall.PaloAlto PanOS Firewall Shell 2G:
     derived_from: cloudshell.nodes.Firewall
     #properties:
     #  my_property:

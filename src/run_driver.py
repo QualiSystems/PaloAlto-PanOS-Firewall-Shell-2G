@@ -113,9 +113,11 @@ request2 = """{
 SHELL_NAME = ShellDriver.SHELL_NAME + "."
 # SHELL_NAME = ""
 
-address = '192.168.42.169'
+# address = '192.168.26.24'
+address = '192.168.73.200'
+# address = '192.168.73.5'
 # address = '192.168.73.132'
-# address = '172.16.1.249'
+# address = '192.168.73.152'
 user = 'admin'
 password = 'admin'
 enable_password = ''
@@ -138,7 +140,7 @@ context.resource.attributes['{}Enable Password'.format(SHELL_NAME)] = enable_pas
 # context.resource.attributes['Backup Location'] = 'tftp://172.25.10.96/AireOS_test'
 # context.resource.attributes['{}Backup Location'.format(SHELL_NAME)] = 'ftp://junos:junos@192.168.85.47'
 # context.resource.attributes['{}Backup Location'.format(SHELL_NAME)] = 'ftp://user:pass@172.29.128.11'
-context.resource.attributes['{}Backup Location'.format(SHELL_NAME)] = '192.168.85.27'
+context.resource.attributes['{}Backup Location'.format(SHELL_NAME)] = '192.168.85.47'
 context.resource.attributes['{}Backup Type'.format(SHELL_NAME)] = 'tftp'
 context.resource.address = address
 # context.connectivity = ConnectivityContext()
@@ -146,7 +148,7 @@ context.resource.address = address
 # context.connectivity.server_address = '10.5.1.2'
 # context.connectivity.cloudshell_api_port = api_port
 context.resource.attributes['{}SNMP Version'.format(SHELL_NAME)] = 'v2c'
-context.resource.attributes['{}SNMP Read Community'.format(SHELL_NAME)] = 'quali'
+context.resource.attributes['{}SNMP Read Community'.format(SHELL_NAME)] = 'public'
 # context.resource.attributes['{}SNMP Version'.format(SHELL_NAME)] = 'v3'
 # context.resource.attributes['{}SNMP V3 User'.format(SHELL_NAME)] = 'test_user'
 # context.resource.attributes['{}SNMP V3 Password'.format(SHELL_NAME)] = 'S3c@sw0rd'
@@ -165,14 +167,18 @@ if __name__ == '__main__':
     driver = ShellDriver()
     driver.initialize(context)
 
-    with patch('driver.get_api') as get_api:
+    with patch('driver.CloudShellSessionContext') as get_api:
         api = type('api', (object,),
                    {'DecryptPassword': lambda self, pw: type('Password', (object,), {'Value': pw})()})()
-        get_api.return_value = api
-        print "*" * 20, "START", "*" * 20
-        print driver.get_inventory(context)
+        # get_api.return_value = api
+
+        get_api.return_value.get_api.return_value = api
+        print("*" * 20, "START", "*" * 20)
+        discovery = driver.get_inventory(context)
+
+        print(discovery)
         # print "*" * 20, "START", "*" * 20
-        # print driver.health_check(context=context)
+        # print(driver.health_check(context=context))
         # print "*" * 20, "START", "*" * 20
         # # print driver.load_firmware(context=context, path="pp", vrf_management_name=None)
         # # print "*" * 20, "START", "*" * 20
@@ -184,7 +190,17 @@ if __name__ == '__main__':
         # print "*" * 20, "START", "*" * 20
         # save_result = driver.save(context=context, folder_path="", configuration_type="running")
         # print "*" * 20, "START", "*" * 20
-        # # print driver.save(context=context, folder_path="", configuration_type="startup")
+        # print driver.save(context=context, folder_path="", configuration_type="startup")
+        # print(driver.save(context=context, folder_path="tftp://192.168.85.63", configuration_type="running", vrf_management_name=""))
+        # print driver.save(context=context,
+        #                   folder_path="scp://quali:Password1@192.168.42.102/home/quali/scp_folder/",
+        #                   configuration_type="startup")
+        # print(driver.save(context=context,
+        #                   folder_path="scp://quali:Password1@192.168.42.102/home/quali/scp_folder/",
+        #                   configuration_type="running",
+        #                   vrf_management_name=""))
+        # "scp export configuration from running-config.xml to quali:Password1@192.168.42.102:/home/quali/scp_folder/PanOS-startup-021220-075825"
+
         # print driver.restore(context=context,
         #                      path="tftp://{}/{}".format("192.168.85.27", "Test_PanOS-running-110918-163559"),
         #                      configuration_type="running",
@@ -203,4 +219,4 @@ if __name__ == '__main__':
         #                           restore_method="append")
 
         # print response
-        print "*" * 20, "FINISH", "*" * 20
+        print("*" * 20, "FINISH", "*" * 20)
