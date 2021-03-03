@@ -4,7 +4,7 @@ metadata:
   template_name: PaloAlto PanOS Firewall Shell 2G
   template_author: Quali
   template_version: 2.0.0
-  template_icon: shell-icon.png
+  template_icon: PaloAlto.png
 
 description: >
   This Shell supports Palo Alto Firewall devices that run PanOS
@@ -63,12 +63,24 @@ node_types:
           SNMP V3 Private Key:
             description: Relevant only in case SNMP V3 is in use.
             type: string
+          SNMP V3 Authentication Protocol:
+            description: Relevant only in case SNMP V3 is in use.
+            type: string
+            default: SHA
+            constraints:
+              - valid_values: [SHA]
+          SNMP V3 Privacy Protocol:
+            description: Relevant only in case SNMP V3 is in use.
+            type: string
+            default: AES-128
+            constraints:
+              - valid_values: [AES-128]
           SNMP Version:
             type: string
             default: ''
             description: The version of SNMP to use. Possible values are v1, v2c and v3.
             constraints:
-              - valid_values: [ v1, v2c, v3]
+              - valid_values: [v1, v2c, v3]
           Enable SNMP:
             description: If set to True and SNMP isn’t enabled yet in the device the Shell will automatically enable SNMP in the device when Autoload command is called. SNMP must be enabled on the device for the Autoload command to run successfully. True by default.
             type: boolean
@@ -115,7 +127,7 @@ node_types:
             default: 0
     artifacts:
       icon:
-        file: shell-icon.png
+        file: PaloAlto.png
         type: tosca.artifacts.File
       driver:
         file: PaloAltoFirewallShellDriver.zip

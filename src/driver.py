@@ -68,24 +68,24 @@ class PaloAltoShellDriver(
         :param context: an object with all Resource Attributes inside
         :return: Success or Error message
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
 
-        state_operations = StateFlow(
-            logger=logger,
-            api=api,
-            resource_config=resource_config,
-            cli_configurator=cli_handler,
-        )
-        return state_operations.health_check()
+            state_operations = StateFlow(
+                logger=logger,
+                api=api,
+                resource_config=resource_config,
+                cli_configurator=cli_handler,
+            )
+            return state_operations.health_check()
 
     @GlobalLock.lock
     def get_inventory(self, context: AutoLoadCommandContext) -> AutoLoadDetails:
@@ -93,31 +93,31 @@ class PaloAltoShellDriver(
         :param context: an object with all Resource Attributes inside
         :return: response
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        snmp_handler = SNMPHandler(resource_config, logger, cli_handler)
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            snmp_handler = SNMPHandler(resource_config, logger, cli_handler)
 
-        autoload_operations = AutoloadFlow(logger=logger, snmp_handler=snmp_handler)
-        logger.info("Autoload started")
-        resource_model = FirewallResourceModel(
-            resource_config.name,
-            resource_config.shell_name,
-            resource_config.family_name,
-        )
+            autoload_operations = AutoloadFlow(logger=logger, snmp_handler=snmp_handler)
+            logger.info("Autoload started")
+            resource_model = FirewallResourceModel(
+                resource_config.name,
+                resource_config.shell_name,
+                resource_config.family_name,
+            )
 
-        response = autoload_operations.discover(
-            resource_config.supported_os, resource_model
-        )
-        logger.info("Autoload completed")
-        return response
+            response = autoload_operations.discover(
+                resource_config.supported_os, resource_model
+            )
+            logger.info("Autoload completed")
+            return response
 
     def run_custom_command(
         self, context: ResourceCommandContext, custom_command: str
@@ -127,26 +127,26 @@ class PaloAltoShellDriver(
         :param context: an object with all Resource Attributes inside
         :return: result
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        send_command_operations = CommandFlow(
-            logger=logger, cli_configurator=cli_handler
-        )
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            send_command_operations = CommandFlow(
+                logger=logger, cli_configurator=cli_handler
+            )
 
-        response = send_command_operations.run_custom_command(
-            custom_command=custom_command
-        )
+            response = send_command_operations.run_custom_command(
+                custom_command=custom_command
+            )
 
-        return response
+            return response
 
     def run_custom_config_command(
         self, context: ResourceCommandContext, custom_command: str
@@ -156,26 +156,26 @@ class PaloAltoShellDriver(
         :param context: an object with all Resource Attributes inside
         :return: result
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        send_command_operations = CommandFlow(
-            logger=logger, cli_configurator=cli_handler
-        )
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            send_command_operations = CommandFlow(
+                logger=logger, cli_configurator=cli_handler
+            )
 
-        result_str = send_command_operations.run_custom_config_command(
-            custom_command=custom_command
-        )
+            result_str = send_command_operations.run_custom_config_command(
+                custom_command=custom_command
+            )
 
-        return result_str
+            return result_str
 
     def save(
         self,
@@ -191,34 +191,34 @@ class PaloAltoShellDriver(
         :param vrf_management_name: VRF management Name
         :return str saved configuration file name
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        if not configuration_type:
-            configuration_type = "running"
+            if not configuration_type:
+                configuration_type = "running"
 
-        if not vrf_management_name:
-            vrf_management_name = resource_config.vrf_management_name
+            if not vrf_management_name:
+                vrf_management_name = resource_config.vrf_management_name
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        configuration_flow = ConfigurationFlow(
-            cli_handler=cli_handler, logger=logger, resource_config=resource_config
-        )
-        logger.info("Save started")
-        response = configuration_flow.save(
-            folder_path=folder_path,
-            configuration_type=configuration_type,
-            vrf_management_name=vrf_management_name,
-        )
-        logger.info("Save completed")
-        return response
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            configuration_flow = ConfigurationFlow(
+                cli_handler=cli_handler, logger=logger, resource_config=resource_config
+            )
+            logger.info("Save started")
+            response = configuration_flow.save(
+                folder_path=folder_path,
+                configuration_type=configuration_type,
+                vrf_management_name=vrf_management_name,
+            )
+            logger.info("Save completed")
+            return response
 
     @GlobalLock.lock
     def restore(
@@ -236,37 +236,37 @@ class PaloAltoShellDriver(
         :param restore_method: append or override methods
         :param vrf_management_name: VRF management Name
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        if not configuration_type:
-            configuration_type = "running"
+            if not configuration_type:
+                configuration_type = "running"
 
-        if not restore_method:
-            restore_method = "override"
+            if not restore_method:
+                restore_method = "override"
 
-        if not vrf_management_name:
-            vrf_management_name = resource_config.vrf_management_name
+            if not vrf_management_name:
+                vrf_management_name = resource_config.vrf_management_name
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        configuration_flow = ConfigurationFlow(
-            cli_handler=cli_handler, logger=logger, resource_config=resource_config
-        )
-        logger.info("Restore started")
-        configuration_flow.restore(
-            path=path,
-            restore_method=restore_method,
-            configuration_type=configuration_type,
-            vrf_management_name=vrf_management_name,
-        )
-        logger.info("Restore completed")
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            configuration_flow = ConfigurationFlow(
+                cli_handler=cli_handler, logger=logger, resource_config=resource_config
+            )
+            logger.info("Restore started")
+            configuration_flow.restore(
+                path=path,
+                restore_method=restore_method,
+                configuration_type=configuration_type,
+                vrf_management_name=vrf_management_name,
+            )
+            logger.info("Restore completed")
 
     @GlobalLock.lock
     def load_firmware(
@@ -277,52 +277,52 @@ class PaloAltoShellDriver(
         :param path: full path to firmware file, i.e. tftp://10.10.10.1/firmware.tar
         :param vrf_management_name: VRF management Name
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        if not vrf_management_name:
-            vrf_management_name = resource_config.vrf_management_name
+            if not vrf_management_name:
+                vrf_management_name = resource_config.vrf_management_name
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
 
-        logger.info("Start Load Firmware")
-        firmware_operations = FirmwareFlow(cli_handler=cli_handler, logger=logger)
-        response = firmware_operations.load_firmware(
-            path=path, vrf_management_name=vrf_management_name
-        )
-        logger.info("Finish Load Firmware: {}".format(response))
+            logger.info("Start Load Firmware")
+            firmware_operations = FirmwareFlow(cli_handler=cli_handler, logger=logger)
+            response = firmware_operations.load_firmware(
+                path=path, vrf_management_name=vrf_management_name
+            )
+            logger.info("Finish Load Firmware: {}".format(response))
 
     def shutdown(self, context: ResourceCommandContext):
         """Shutdown device.
         :param context: an object with all Resource Attributes inside
         :return:
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        state_operations = StateFlow(
-            logger=logger,
-            api=api,
-            resource_config=resource_config,
-            cli_configurator=cli_handler,
-        )
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            state_operations = StateFlow(
+                logger=logger,
+                api=api,
+                resource_config=resource_config,
+                cli_configurator=cli_handler,
+            )
 
-        return state_operations.shutdown()
+            return state_operations.shutdown()
 
     def orchestration_save(
         self, context: ResourceCommandContext, mode: str, custom_params: str
@@ -333,33 +333,33 @@ class PaloAltoShellDriver(
         :param custom_params: json with custom save parameters
         :return str response: response json
         """
-        if not mode:
-            mode = "shallow"
+        with LoggingSessionContext(context) as logger:
+            if not mode:
+                mode = "shallow"
 
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
+            api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        configuration_flow = ConfigurationFlow(
-            cli_handler=cli_handler, logger=logger, resource_config=resource_config
-        )
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            configuration_flow = ConfigurationFlow(
+                cli_handler=cli_handler, logger=logger, resource_config=resource_config
+            )
 
-        logger.info("Orchestration save started")
-        response = configuration_flow.orchestration_save(
-            mode=mode, custom_params=custom_params
-        )
-        response_json = OrchestrationSaveRestore(
-            logger, resource_config.name
-        ).prepare_orchestration_save_result(response)
-        logger.info("Orchestration save completed")
-        return response_json
+            logger.info("Orchestration save started")
+            response = configuration_flow.orchestration_save(
+                mode=mode, custom_params=custom_params
+            )
+            response_json = OrchestrationSaveRestore(
+                logger, resource_config.name
+            ).prepare_orchestration_save_result(response)
+            logger.info("Orchestration save completed")
+            return response_json
 
     def orchestration_restore(
         self,
@@ -372,27 +372,28 @@ class PaloAltoShellDriver(
         :param saved_artifact_info: OrchestrationSavedArtifactInfo json
         :param custom_params: json with custom restore parameters
         """
-        logger = LoggingSessionContext.get_logger_with_thread_id(context)
-        api = CloudShellSessionContext(context).get_api()
 
-        resource_config = FirewallResourceConfig.from_context(
-            shell_name=self.SHELL_NAME,
-            supported_os=self.SUPPORTED_OS,
-            context=context,
-            api=api,
-        )
+        with LoggingSessionContext(context) as logger:
+            api = CloudShellSessionContext(context).get_api()
 
-        cli_handler = self._cli.get_cli_handler(resource_config, logger)
-        configuration_flow = ConfigurationFlow(
-            cli_handler=cli_handler, logger=logger, resource_config=resource_config
-        )
+            resource_config = FirewallResourceConfig.from_context(
+                shell_name=self.SHELL_NAME,
+                supported_os=self.SUPPORTED_OS,
+                context=context,
+                api=api,
+            )
 
-        logger.info("Orchestration restore started")
-        restore_params = OrchestrationSaveRestore(
-            logger, resource_config.name
-        ).parse_orchestration_save_result(saved_artifact_info)
-        configuration_flow.restore(**restore_params)
-        logger.info("Orchestration restore completed")
+            cli_handler = self._cli.get_cli_handler(resource_config, logger)
+            configuration_flow = ConfigurationFlow(
+                cli_handler=cli_handler, logger=logger, resource_config=resource_config
+            )
+
+            logger.info("Orchestration restore started")
+            restore_params = OrchestrationSaveRestore(
+                logger, resource_config.name
+            ).parse_orchestration_save_result(saved_artifact_info)
+            configuration_flow.restore(**restore_params)
+            logger.info("Orchestration restore completed")
 
     def cleanup(self):
         """

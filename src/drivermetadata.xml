@@ -26,8 +26,8 @@
 
                 </Parameters>
             </Command>
-            <Command Name="health_check"  Tags="" Description="Checks if the device is up and connectable"/>
         </Category>
+        <Command Name="health_check" DisplayName="Health Check" Tags="" Description="Checks if the device is up and connectable"/>
         <Command Name="run_custom_command" DisplayName="Send Custom Command" Tags="" Description="Executes a custom command on the device">
             <Parameters>
                 <Parameter Name="custom_command" Type="String" Mandatory = "True" DisplayName="Command" DefaultValue=""
