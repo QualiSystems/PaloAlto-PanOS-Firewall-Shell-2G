@@ -50,6 +50,7 @@ class PaloAltoShellDriver(
 
     def initialize(self, context: InitCommandContext) -> str:
         """Initialize method.
+
         :param context: an object with all Resource Attributes inside
         """
         resource_config = FirewallResourceConfig.from_context(
@@ -61,6 +62,7 @@ class PaloAltoShellDriver(
 
     def health_check(self, context: ResourceCommandContext):
         """Performs device health check.
+
         :param context: an object with all Resource Attributes inside
         :return: Success or Error message
         """
@@ -86,6 +88,7 @@ class PaloAltoShellDriver(
     @GlobalLock.lock
     def get_inventory(self, context: AutoLoadCommandContext) -> AutoLoadDetails:
         """Return device structure with all standard attributes.
+
         :param context: an object with all Resource Attributes inside
         :return: response
         """
@@ -119,6 +122,7 @@ class PaloAltoShellDriver(
         self, context: ResourceCommandContext, custom_command: str
     ) -> str:
         """Send custom command.
+
         :param custom_command: Command user wants to send to the device.
         :param context: an object with all Resource Attributes inside
         :return: result
@@ -148,6 +152,7 @@ class PaloAltoShellDriver(
         self, context: ResourceCommandContext, custom_command: str
     ) -> str:
         """Send custom command in configuration mode.
+
         :param custom_command: Command user wants to send to the device
         :param context: an object with all Resource Attributes inside
         :return: result
@@ -181,6 +186,7 @@ class PaloAltoShellDriver(
         vrf_management_name: str,
     ) -> str:
         """Save selected file to the provided destination.
+
         :param context: an object with all Resource Attributes inside
         :param configuration_type: source file, which will be saved
         :param folder_path: destination path where file will be saved
@@ -226,6 +232,7 @@ class PaloAltoShellDriver(
         vrf_management_name: str,
     ):
         """Restore selected file to the provided destination.
+
         :param context: an object with all Resource Attributes inside
         :param path: source config file
         :param configuration_type: running or startup configs
@@ -269,6 +276,7 @@ class PaloAltoShellDriver(
         self, context: ResourceCommandContext, path: str, vrf_management_name: str
     ):
         """Upload and updates firmware on the resource.
+
         :param context: an object with all Resource Attributes inside
         :param path: full path to firmware file, i.e. tftp://10.10.10.1/firmware.tar
         :param vrf_management_name: VRF management Name
@@ -297,6 +305,7 @@ class PaloAltoShellDriver(
 
     def shutdown(self, context: ResourceCommandContext):
         """Shutdown device.
+
         :param context: an object with all Resource Attributes inside
         :return:
         """
@@ -324,6 +333,7 @@ class PaloAltoShellDriver(
         self, context: ResourceCommandContext, mode: str, custom_params: str
     ) -> str:
         """Save selected file to the provided destination.
+
         :param context: an object with all Resource Attributes inside
         :param mode: mode
         :param custom_params: json with custom save parameters
@@ -364,11 +374,11 @@ class PaloAltoShellDriver(
         custom_params: str,
     ):
         """Restore selected file to the provided destination.
+
         :param context: an object with all Resource Attributes inside
         :param saved_artifact_info: OrchestrationSavedArtifactInfo json
         :param custom_params: json with custom restore parameters
         """
-
         with LoggingSessionContext(context) as logger:
             api = CloudShellSessionContext(context).get_api()
 
@@ -393,7 +403,9 @@ class PaloAltoShellDriver(
 
     def cleanup(self):
         """
-        Destroy the driver session, this function is called everytime a driver instance is destroyed
+        Destroy the driver session.
+
+        This function is called everytime a driver instance is destroyed.
         This is a good place to close any open sessions, finish writing to log files
         """
         pass
