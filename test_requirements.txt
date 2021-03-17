@@ -1,7 +1,3 @@
+mock; python_version <= '2.7'
 nose
 coverage
-unittest2
-mock
-teamcity-messages
-jsonpickle
-nose-exclude

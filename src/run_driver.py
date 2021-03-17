@@ -1,6 +1,10 @@
-from mock import patch, create_autospec
-from cloudshell.shell.core.driver_context import ResourceCommandContext, ResourceContextDetails, \
-    ReservationContextDetails
+from cloudshell.shell.core.driver_context import (
+    ReservationContextDetails,
+    ResourceCommandContext,
+    ResourceContextDetails,
+)
+from mock import create_autospec, patch
+
 from driver import PaloAltoShellDriver as ShellDriver
 
 set_vlan = "setVlan"
@@ -113,35 +117,35 @@ request2 = """{
 SHELL_NAME = ShellDriver.SHELL_NAME + "."
 # SHELL_NAME = ""
 
-address = '192.168.26.24'
+address = "192.168.26.24"
 # address = '192.168.73.200'
 # address = '192.168.73.5'
 # address = '192.168.73.132'
 # address = '192.168.73.152'
-user = 'admin'
-password = 'admin'
-enable_password = ''
-auth_key = 'h8WRxvHoWkmH8rLQz+Z/pg=='
+user = "admin"
+password = "admin"
+enable_password = ""
+auth_key = "h8WRxvHoWkmH8rLQz+Z/pg=="
 api_port = 8029
 
 context = create_autospec(ResourceCommandContext)
 context.resource = create_autospec(ResourceContextDetails)
-context.resource.name = 'Test PanOS'
-context.resource.fullname = 'Test PanOS'
-context.resource.family = 'CS_Firewall'
+context.resource.name = "Test PanOS"
+context.resource.fullname = "Test PanOS"
+context.resource.family = "CS_Firewall"
 context.reservation = create_autospec(ReservationContextDetails)
-context.reservation.reservation_id = 'test_id'
+context.reservation.reservation_id = "test_id"
 context.resource.attributes = {}
-context.resource.attributes['{}User'.format(SHELL_NAME)] = user
-context.resource.attributes['{}Password'.format(SHELL_NAME)] = password
-context.resource.attributes['{}host'.format(SHELL_NAME)] = address
-context.resource.attributes['{}Enable Password'.format(SHELL_NAME)] = enable_password
+context.resource.attributes["{}User".format(SHELL_NAME)] = user
+context.resource.attributes["{}Password".format(SHELL_NAME)] = password
+context.resource.attributes["{}host".format(SHELL_NAME)] = address
+context.resource.attributes["{}Enable Password".format(SHELL_NAME)] = enable_password
 # context.resource.attributes['Port'] = port
 # context.resource.attributes['Backup Location'] = 'tftp://172.25.10.96/AireOS_test'
 # context.resource.attributes['{}Backup Location'.format(SHELL_NAME)] = 'ftp://junos:junos@192.168.85.47'
 # context.resource.attributes['{}Backup Location'.format(SHELL_NAME)] = 'ftp://user:pass@172.29.128.11'
-context.resource.attributes['{}Backup Location'.format(SHELL_NAME)] = '192.168.85.47'
-context.resource.attributes['{}Backup Type'.format(SHELL_NAME)] = 'tftp'
+context.resource.attributes["{}Backup Location".format(SHELL_NAME)] = "192.168.85.47"
+context.resource.attributes["{}Backup Type".format(SHELL_NAME)] = "tftp"
 context.resource.address = address
 # context.connectivity = ConnectivityContext()
 # context.connectivity.admin_auth_token = auth_key
@@ -149,27 +153,36 @@ context.resource.address = address
 # context.connectivity.cloudshell_api_port = api_port
 # context.resource.attributes['{}SNMP Version'.format(SHELL_NAME)] = 'v2c'
 # context.resource.attributes['{}SNMP Read Community'.format(SHELL_NAME)] = 'public'
-context.resource.attributes['{}SNMP Version'.format(SHELL_NAME)] = 'v3'
-context.resource.attributes['{}SNMP V3 User'.format(SHELL_NAME)] = 'quali'
-context.resource.attributes['{}SNMP V3 Password'.format(SHELL_NAME)] = 'Password1'
-context.resource.attributes['{}SNMP V3 Private Key'.format(SHELL_NAME)] = 'Password1'
-context.resource.attributes['{}SNMP V3 Authentication Protocol'.format(SHELL_NAME)] = 'SHA'
-context.resource.attributes['{}SNMP V3 Privacy Protocol'.format(SHELL_NAME)] = 'AES-128'
-context.resource.attributes['{}CLI Connection Type'.format(SHELL_NAME)] = 'ssh'
+context.resource.attributes["{}SNMP Version".format(SHELL_NAME)] = "v3"
+context.resource.attributes["{}SNMP V3 User".format(SHELL_NAME)] = "quali"
+context.resource.attributes["{}SNMP V3 Password".format(SHELL_NAME)] = "Password1"
+context.resource.attributes["{}SNMP V3 Private Key".format(SHELL_NAME)] = "Password1"
+context.resource.attributes[
+    "{}SNMP V3 Authentication Protocol".format(SHELL_NAME)
+] = "SHA"
+context.resource.attributes["{}SNMP V3 Privacy Protocol".format(SHELL_NAME)] = "AES-128"
+context.resource.attributes["{}CLI Connection Type".format(SHELL_NAME)] = "ssh"
 # context.resource.attributes['{}CLI TCP Port'.format(SHELL_NAME)] = 17000
-context.resource.attributes['{}Enable SNMP'.format(SHELL_NAME)] = 'False'
-context.resource.attributes['{}Disable SNMP'.format(SHELL_NAME)] = 'False'
-context.resource.attributes['{}Sessions Concurrency Limit'.format(SHELL_NAME)] = '1'
+context.resource.attributes["{}Enable SNMP".format(SHELL_NAME)] = "False"
+context.resource.attributes["{}Disable SNMP".format(SHELL_NAME)] = "False"
+context.resource.attributes["{}Sessions Concurrency Limit".format(SHELL_NAME)] = "1"
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     res = dict(context.resource.attributes)
 
     driver = ShellDriver()
     driver.initialize(context)
 
-    with patch('driver.CloudShellSessionContext') as get_api:
-        api = type('api', (object,),
-                   {'DecryptPassword': lambda self, pw: type('Password', (object,), {'Value': pw})()})()
+    with patch("driver.CloudShellSessionContext") as get_api:
+        api = type(
+            "api",
+            (object,),
+            {
+                "DecryptPassword": lambda self, pw: type(
+                    "Password", (object,), {"Value": pw}
+                )()
+            },
+        )()
         # get_api.return_value = api
 
         get_api.return_value.get_api.return_value = api

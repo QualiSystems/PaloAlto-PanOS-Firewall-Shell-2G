@@ -1,26 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from cloudshell.shell.core.driver_context import (
-    AutoLoadCommandContext,
-    AutoLoadDetails,
-    InitCommandContext,
-    ResourceCommandContext,
-)
-from cloudshell.shell.core.driver_utils import GlobalLock
-from cloudshell.shell.core.orchestration_save_restore import OrchestrationSaveRestore
-from cloudshell.shell.core.resource_driver_interface import ResourceDriverInterface
-from cloudshell.shell.core.session.cloudshell_session import CloudShellSessionContext
-from cloudshell.shell.core.session.logging_session import LoggingSessionContext
-from cloudshell.shell.standards.firewall.autoload_model import FirewallResourceModel
-from cloudshell.shell.standards.firewall.driver_interface import (
-    FirewallResourceDriverInterface,
-)
-from cloudshell.shell.standards.firewall.resource_config import (
-    FirewallResourceConfig,
-)
-
-
 from cloudshell.firewall.paloalto.panos.cli.panos_cli_handler import PanOSCli
 from cloudshell.firewall.paloalto.panos.flows.panos_autoload_flow import (
     PanOSSnmpAutoloadFlow as AutoloadFlow,
@@ -40,6 +20,22 @@ from cloudshell.firewall.paloalto.panos.flows.panos_state_flow import (
 from cloudshell.firewall.paloalto.panos.snmp.panos_snmp_handler import (
     PanOSSnmpHandler as SNMPHandler,
 )
+from cloudshell.shell.core.driver_context import (
+    AutoLoadCommandContext,
+    AutoLoadDetails,
+    InitCommandContext,
+    ResourceCommandContext,
+)
+from cloudshell.shell.core.driver_utils import GlobalLock
+from cloudshell.shell.core.orchestration_save_restore import OrchestrationSaveRestore
+from cloudshell.shell.core.resource_driver_interface import ResourceDriverInterface
+from cloudshell.shell.core.session.cloudshell_session import CloudShellSessionContext
+from cloudshell.shell.core.session.logging_session import LoggingSessionContext
+from cloudshell.shell.standards.firewall.autoload_model import FirewallResourceModel
+from cloudshell.shell.standards.firewall.driver_interface import (
+    FirewallResourceDriverInterface,
+)
+from cloudshell.shell.standards.firewall.resource_config import FirewallResourceConfig
 
 
 class PaloAltoShellDriver(
