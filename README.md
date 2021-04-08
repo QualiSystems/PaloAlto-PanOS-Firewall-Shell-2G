@@ -1,16 +1,14 @@
-[![Build status](https://github.com/QualiSystems/PaloAlto-PanoOS-Shell/workflows/CI/badge.svg?branch=master)](https://github.com/QualiSystems/PaloAlto-PanoOS-Shell/actions?query=branch%3Amaster)
-
 <p align="left">
 <img src="https://github.com/QualiSystems/cloudshell-shells-documentaion-templates/blob/master/cloudshell_logo.png"></img>
 </p>
 
 # **Palo Alto Firewall Shell**  
 
-Release date: October 2018
+Release date: April 2021
 
-Shell version: 1.0.0
+Shell version: 2.0.0
 
-Document version: 1.0
+Document version: 2.0
 
 # In This Guide
 

@@ -1,19 +1,19 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 metadata:
-  template_name: Palo Alto Firewall Shell
+  template_name: PaloAlto PanOS Firewall Shell 2G
   template_author: Quali
-  template_version: 1.0.2
-  template_icon: shell-icon.png
+  template_version: 2.0.0
+  template_icon: PaloAlto.png
 
 description: >
   This Shell supports Palo Alto Firewall devices that run PanOS
 
 imports:
-  - cloudshell_standard: cloudshell_firewall_standard_3_0_1.yaml
+  - cloudshell_standard: cloudshell_firewall_standard_3_0_2.yaml
 
 node_types:
-  vendor.firewall.PaloAlto Firewall:
+  vendor.firewall.PaloAlto PanOS Firewall Shell 2G:
     derived_from: cloudshell.nodes.Firewall
     #properties:
     #  my_property:
@@ -63,12 +63,24 @@ node_types:
           SNMP V3 Private Key:
             description: Relevant only in case SNMP V3 is in use.
             type: string
+          SNMP V3 Authentication Protocol:
+            description: Relevant only in case SNMP V3 is in use.
+            type: string
+            default: SHA
+            constraints:
+              - valid_values: [SHA]
+          SNMP V3 Privacy Protocol:
+            description: Relevant only in case SNMP V3 is in use.
+            type: string
+            default: AES-128
+            constraints:
+              - valid_values: [AES-128]
           SNMP Version:
             type: string
             default: ''
             description: The version of SNMP to use. Possible values are v1, v2c and v3.
             constraints:
-              - valid_values: [ v1, v2c, v3]
+              - valid_values: [v1, v2c, v3]
           Enable SNMP:
             description: If set to True and SNMP isn’t enabled yet in the device the Shell will automatically enable SNMP in the device when Autoload command is called. SNMP must be enabled on the device for the Autoload command to run successfully. True by default.
             type: boolean
@@ -115,7 +127,7 @@ node_types:
             default: 0
     artifacts:
       icon:
-        file: shell-icon.png
+        file: PaloAlto.png
         type: tosca.artifacts.File
       driver:
         file: PaloAltoFirewallShellDriver.zip

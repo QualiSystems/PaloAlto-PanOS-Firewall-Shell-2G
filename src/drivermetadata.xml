@@ -1,4 +1,4 @@
-<Driver Description="Describe the purpose of your CloudShell shell" MainClass="driver.PaloAltoShellDriver" Name="PaloAltoShellDriver" Version="1.0.0">
+<Driver Description="Describe the purpose of your CloudShell shell" MainClass="driver.PaloAltoShellDriver" Name="PaloAltoShellDriver" Version="2.0.0" PythonVersion="3">
     <Layout>
         <Category Name="Hidden Commands">
             <Command Name="shutdown" DisplayName="Shutdown" Tags="" Description="Sends a graceful shutdown to the device"/>
@@ -27,7 +27,7 @@
                 </Parameters>
             </Command>
         </Category>
-        <Command Name="health_check"  Tags="" Description="Checks if the device is up and connectable"/>
+        <Command Name="health_check" DisplayName="Health Check" Tags="" Description="Checks if the device is up and connectable"/>
         <Command Name="run_custom_command" DisplayName="Send Custom Command" Tags="" Description="Executes a custom command on the device">
             <Parameters>
                 <Parameter Name="custom_command" Type="String" Mandatory = "True" DisplayName="Command" DefaultValue=""
