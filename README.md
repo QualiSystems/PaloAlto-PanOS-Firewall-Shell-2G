@@ -4,7 +4,7 @@
 
 # **Palo Alto Firewall Shell**  
 
-Release date: October 2018
+Release date: April 2021
 
 Shell version: 2.0.0
 
