@@ -227,3 +227,4 @@ For release updates, see the shell's [GitHub releases page](https://github.com/Q
 
 ### Known Issues
 * PaloAlto PanOS supports the following **SNMP v3** encryption configuration only: authentication protocol - **SHA** and privacy protocol - **AES-128**
+* PaloAlto PanOS doesn't support saving/restoring configuration files to/from FTP location, please use TFTP or SCP.
