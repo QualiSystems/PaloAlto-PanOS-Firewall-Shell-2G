@@ -1,14 +1,13 @@
 from __future__ import annotations
 
+from cloudshell.cli.service.cli import CLI
+from cloudshell.cli.service.session_pool_manager import SessionPoolManager
 from cloudshell.shell.core.driver_context import (
     AutoLoadCommandContext,
     AutoLoadDetails,
+    InitCommandContext,
     ResourceCommandContext,
 )
-
-from cloudshell.cli.service.cli import CLI
-from cloudshell.cli.service.session_pool_manager import SessionPoolManager
-from cloudshell.shell.core.driver_context import InitCommandContext
 from cloudshell.shell.core.driver_utils import GlobalLock
 from cloudshell.shell.core.orchestration_save_restore import OrchestrationSaveRestore
 from cloudshell.shell.core.resource_driver_interface import ResourceDriverInterface
@@ -22,22 +21,14 @@ from cloudshell.shell.standards.firewall.driver_interface import (
 from cloudshell.shell.standards.firewall.resource_config import FirewallResourceConfig
 from cloudshell.snmp.snmp_configurator import EnableDisableSnmpConfigurator
 
-from cloudshell.firewall.paloalto.panos.cli.panos_cli_configurator import (
-    PanOSCliConfigurator,
-)
-from cloudshell.firewall.paloalto.panos.flows.panos_autoload_flow import (
-    PanOSSnmpAutoloadFlow,
-)
-from cloudshell.firewall.paloalto.panos.flows.panos_configuration_flow import (
-    PanOSConfigurationFlow,
-)
-from cloudshell.firewall.paloalto.panos.flows.panos_enable_disable_snmp_flow import (
+from cloudshell.paloalto.cli.panos_cli_configurator import PanOSCliConfigurator
+from cloudshell.paloalto.flows.panos_autoload_flow import PanOSSnmpAutoloadFlow
+from cloudshell.paloalto.flows.panos_configuration_flow import PanOSConfigurationFlow
+from cloudshell.paloalto.flows.panos_enable_disable_snmp_flow import (
     PanOSEnableDisableSnmpFlow,
 )
-from cloudshell.firewall.paloalto.panos.flows.panos_load_firmware_flow import (
-    PanOSLoadFirmwareFlow,
-)
-from cloudshell.firewall.paloalto.panos.flows.panos_state_flow import PanOSStateFlow
+from cloudshell.paloalto.flows.panos_load_firmware_flow import PanOSLoadFirmwareFlow
+from cloudshell.paloalto.flows.panos_state_flow import PanOSStateFlow
 
 
 class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterface):
@@ -94,9 +85,7 @@ class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterfa
             return response
 
     def run_custom_command(
-            self,
-            context: ResourceCommandContext,
-            custom_command: str
+        self, context: ResourceCommandContext, custom_command: str
     ) -> str:
         """Send custom command."""
         with LoggingSessionContext(context) as logger:
@@ -112,9 +101,7 @@ class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterfa
             return response
 
     def run_custom_config_command(
-            self,
-            context: ResourceCommandContext,
-            custom_command: str
+        self, context: ResourceCommandContext, custom_command: str
     ) -> str:
         """Send custom command in configuration mode."""
         with LoggingSessionContext(context) as logger:
@@ -132,11 +119,11 @@ class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterfa
             return result_str
 
     def save(
-            self,
-            context: ResourceCommandContext,
-            folder_path: str,
-            configuration_type: str,
-            vrf_management_name: str,
+        self,
+        context: ResourceCommandContext,
+        folder_path: str,
+        configuration_type: str,
+        vrf_management_name: str,
     ) -> str:
         """Save selected file to the provided destination."""
         with LoggingSessionContext(context) as logger:
@@ -204,13 +191,9 @@ class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterfa
             )
             logger.info("Restore completed")
 
-
     @GlobalLock.lock
     def load_firmware(
-            self,
-            context: ResourceCommandContext,
-            path: str,
-            vrf_management_name: str
+        self, context: ResourceCommandContext, path: str, vrf_management_name: str
     ):
         """Upload and updates firmware on the resource."""
         with LoggingSessionContext(context) as logger:
@@ -226,8 +209,7 @@ class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterfa
 
             logger.info("Start Load Firmware")
             firmware_operations = PanOSLoadFirmwareFlow(
-                resource_config,
-                cli_configurator
+                resource_config, cli_configurator
             )
             firmware_operations.load_firmware(
                 path=path, vrf_management_name=vrf_management_name
@@ -249,10 +231,7 @@ class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterfa
             return state_operations.shutdown()
 
     def orchestration_save(
-            self,
-            context: ResourceCommandContext,
-            mode: str,
-            custom_params: str
+        self, context: ResourceCommandContext, mode: str, custom_params: str
     ) -> str:
         """Save selected file to the provided destination."""
         if not mode:
@@ -281,10 +260,10 @@ class PaloAltoShellDriver(ResourceDriverInterface, FirewallResourceDriverInterfa
             return response_json
 
     def orchestration_restore(
-            self,
-            context: ResourceCommandContext,
-            saved_artifact_info: str,
-            custom_params: str,
+        self,
+        context: ResourceCommandContext,
+        saved_artifact_info: str,
+        custom_params: str,
     ):
         """Restore selected file to the provided destination."""
         with LoggingSessionContext(context) as logger:

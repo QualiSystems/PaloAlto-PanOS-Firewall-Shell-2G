@@ -1,5 +1,5 @@
 cloudshell-shell-core~=6.0
 cloudshell-cli~=5.0
 cloudshell-snmp~=5.0
-cloudshell-firewall-panos~=3.0
+cloudshell-paloalto~=3.0
 cloudshell-shell-firewall-standard~=4.0
