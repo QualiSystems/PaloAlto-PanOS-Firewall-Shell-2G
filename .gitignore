@@ -61,3 +61,5 @@ cloudshell_config.yml
 
 .idea/
 run_driver.py
+
+/src/run_pan_os.py
