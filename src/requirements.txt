@@ -1,4 +1,5 @@
-cloudshell-automation-api>=9.2
-cloudshell-shell-firewall-standard==3.0.2
-cloudshell-firewall-panos>=2.0,<2.1
-cloudshell-shell-core>=5.0,<6.0
+cloudshell-shell-core~=6.0
+cloudshell-cli~=5.0
+cloudshell-snmp~=5.0
+cloudshell-paloalto~=3.0
+cloudshell-shell-firewall-standard~=4.0
