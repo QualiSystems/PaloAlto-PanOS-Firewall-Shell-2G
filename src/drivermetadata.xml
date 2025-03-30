@@ -1,8 +1,8 @@
 <Driver Description="Describe the purpose of your CloudShell shell" MainClass="driver.PaloAltoShellDriver" Name="PaloAltoShellDriver" Version="2.0.0" PythonVersion="3">
     <Layout>
         <Category Name="Hidden Commands">
-            <Command Name="shutdown" DisplayName="Shutdown" Tags="" Description="Sends a graceful shutdown to the device"/>
-            <Command Name="run_custom_config_command" DisplayName="Send Custom Config Command" Tags="">
+            <Command Name="shutdown" DisplayName="Shutdown" Tags="" Description="Runs a graceful shutdown to the device"/>
+            <Command Name="run_custom_config_command" DisplayName="Run Custom Config Command" Tags="">
                 <Parameters>
                     <Parameter Name="custom_command" Type="String" Mandatory = "True" DisplayName="Command" DefaultValue=""
                                Description="The command to run. Note that commands that require a response are not supported."/>
@@ -28,7 +28,7 @@
             </Command>
         </Category>
         <Command Name="health_check" DisplayName="Health Check" Tags="" Description="Checks if the device is up and connectable"/>
-        <Command Name="run_custom_command" DisplayName="Send Custom Command" Tags="" Description="Executes a custom command on the device">
+        <Command Name="run_custom_command" DisplayName="Run Custom Command" Tags="" Description="Executes a custom command on the device">
             <Parameters>
                 <Parameter Name="custom_command" Type="String" Mandatory = "True" DisplayName="Command" DefaultValue=""
                            Description="The command to run. Note that commands that require a response are not supported."/>
@@ -36,7 +36,7 @@
         </Command>
         <Command Name="save" DisplayName="Save" Tags="" Description="Creates a configuration file and saves it to the provided destination">
             <Parameters>
-                <Parameter Name="configuration_type" Type="Lookup" AllowedValues="Startup,Running" Mandatory = "False"  DefaultValue=""
+                <Parameter Name="configuration_type" Type="Lookup" AllowedValues="Running" Mandatory = "False"  DefaultValue="Running"
                            DisplayName="Configuration Type" Description="Specify whether the file should update the startup or running config. 'Startup' configuration is not supported on all switches."/>
                 <Parameter Name="folder_path" Type="String" Mandatory = "False" DisplayName="Folder Path" DefaultValue=""
                            Description="The path in which the configuration file will be saved. The path should include the protocol type (for example tftp://asdf)"/>
@@ -48,7 +48,7 @@
             <Parameters>
                 <Parameter Name="path" Type="String" Mandatory = "True" DefaultValue="" DisplayName="Path"
                            Description="The path to the configuration file, including the configuration file name. The path should include the protocol type (for example tftp://asdf)."/>
-                <Parameter Name="configuration_type" Type="Lookup" AllowedValues="Startup,Running" Mandatory = "False"  DefaultValue=""
+                <Parameter Name="configuration_type" Type="Lookup" AllowedValues="Running" Mandatory = "False"  DefaultValue="Running"
                            DisplayName="Configuration Type" Description="Specify whether the file should update the startup or running config. 'Startup' configuration is not supported on all switches."/>
                 <Parameter Name="restore_method" Type="Lookup" AllowedValues="Override,Append"  Mandatory = "False" DefaultValue=""
                            DisplayName="Restore Method" Description="Determines whether the restore should append or override the current configuration."/>
